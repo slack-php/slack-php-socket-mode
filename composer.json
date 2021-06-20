@@ -1,0 +1,37 @@
+{
+    "name": "slack-php/slack-socket-mode",
+    "type": "library",
+    "license": "MIT",
+    "description": "Provides a a slack-php Socket Mode implementation",
+    "authors": [
+        {
+            "name": "Jeremy Lindblom",
+            "email": "jeremeamia@gmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4"
+        }
+    },
+    "require": {
+        "amphp/websocket-client": "^1.0",
+        "slack-php/slack-app-framework": "^0.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SlackPhp\\SocketMode\\": "src/"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^0.12.90"
+    },
+    "scripts": {
+        "style": "php-cs-fixer fix --dry-run --verbose --show-progress=none src",
+        "style-fix": "php-cs-fixer fix src",
+        "stan": "phpstan analyse --level=5 src",
+        "qa": ["@style", "@stan"]
+    }
+}
