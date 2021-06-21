@@ -38,15 +38,47 @@ This small app responds to the `/cool` slash command.
 ```php
 <?php
 
+use Psr\Log\LogLevel;
 use SlackPhp\Framework\App;
 use SlackPhp\Framework\Context;
+use SlackPhp\Framework\StderrLogger;
 use SlackPhp\SocketMode\SocketServer;
 
 App::new()
     ->command('cool', function (Context $ctx) {
         $ctx->ack(':thumbsup: That is so cool!');
     })
+    ->withLogger(new StderrLogger(LogLevel::DEBUG))
     ->run(new SocketServer());
+```
+
+### Switching Servers
+
+The relationship between app and server can also be flipped, which might be helpful if you bootstrap script toggles
+between the Socket and HTTP server.
+
+```php
+<?php
+
+use Psr\Log\LogLevel;
+use SlackPhp\Framework\App;
+use SlackPhp\Framework\Context;
+use SlackPhp\Framework\Http\HttpServer;
+use SlackPhp\Framework\StderrLogger;
+use SlackPhp\SocketMode\SocketServer;
+
+$app = App::new()
+    ->command('cool', function (Context $ctx) {
+        $ctx->ack(':thumbsup: That is so cool!');
+    });
+
+if (getenv('SOCKET_MODE')) {
+    $server = SocketServer::new()->withLogger(new StderrLogger(LogLevel::DEBUG));
+} else {
+    $server = HttpServer::new()->withLogger(new StderrLogger(LogLevel::NOTICE));
+}
+
+$server->withApp($app)->start();
 ```
 
 [1]: https://github.com/slack-php/slack-php-app-framework
