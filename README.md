@@ -20,7 +20,7 @@ PHP packages that make async and event loop style programming in PHP possible. C
 When using Socket Mode, there is no web server serving your app. When you run an app configured for Socket Mode, it
 establishes a connection to Slack as a websocket client. It maintains that connection to listen for Slack events until
 it is explicitly terminated (e.g., via `CTRL+C`), Socket Mode is disabled in your app configuration, or an unrecoverable
-error occurs. This is a different way of running PHP than many are used to, so please pay close attention.
+error occurs. This is a different way of running PHP than many aren't used to, so please pay close attention.
 
 When running an app in Slack Mode, you need an "App Token" instead of the typical "Signing Secret". The App Token is
 specially purposed for making the web socket connection. You can read more about [Socket Mode][2] in the Slack
@@ -39,9 +39,7 @@ This small app responds to the `/cool` slash command.
 <?php
 
 use Psr\Log\LogLevel;
-use SlackPhp\Framework\App;
-use SlackPhp\Framework\Context;
-use SlackPhp\Framework\StderrLogger;
+use SlackPhp\Framework\{App, Context, StderrLogger};
 use SlackPhp\SocketMode\SocketServer;
 
 App::new()
@@ -61,10 +59,8 @@ between the Socket and HTTP server.
 <?php
 
 use Psr\Log\LogLevel;
-use SlackPhp\Framework\App;
-use SlackPhp\Framework\Context;
+use SlackPhp\Framework\{App, Context, StderrLogger};
 use SlackPhp\Framework\Http\HttpServer;
-use SlackPhp\Framework\StderrLogger;
 use SlackPhp\SocketMode\SocketServer;
 
 $app = App::new()
