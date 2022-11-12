@@ -90,7 +90,7 @@ class SocketServer extends AppServer
         }
 
         $this->getLogger()->debug('Socket Mode connection closed');
-        exit();
+        exit(1);
     }
 
     /**
